@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using EulerFs.Solutions;
 using System.Linq;
+using System;
 
 namespace EulerFs.CsTests
 {
@@ -29,6 +30,22 @@ namespace EulerFs.CsTests
             var solution = _solutions.Solution002;
 
             Assert.That(solution, Is.EqualTo(4613732));
+        }
+
+        [Test]
+        public void Solution003Test()
+        {
+            var solution = _solutions.Solution003;
+
+            Assert.That(solution, Is.EqualTo(6857));
+        }
+
+        [Test]
+        public void Solution004Test()
+        {
+            var solution = _solutions.Solution004;
+
+            Assert.That(solution, Is.EqualTo(906609));
         }
     }
 }

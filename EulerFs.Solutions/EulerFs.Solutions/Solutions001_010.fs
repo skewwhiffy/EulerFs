@@ -14,3 +14,18 @@ type Solutions001_010() =
         |> Seq.takeWhile (fun n -> n < 4000000)
         |> Seq.filter (fun n -> n % 2 = 0)
         |> Seq.sum
+
+    member this.Solution003 =
+        let prime = Prime()
+        prime.Factorize 600851475143L
+        |> List.max
+
+    member this.Solution004 =
+        let largestPalindrome bottom top =
+            [bottom..top]
+            |> List.collect (fun i -> [i..top] |> List.map (fun j -> i * j))
+            |> List.map (fun i -> i.ToString())
+            |> List.filter (fun i -> (i.ToCharArray() |> Array.rev |> System.String.Concat) = i)
+            |> List.map System.Int32.Parse
+            |> List.max
+        largestPalindrome 100 999
