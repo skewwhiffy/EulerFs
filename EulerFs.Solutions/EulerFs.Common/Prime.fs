@@ -6,6 +6,31 @@ namespace EulerFs.Common
 open System
 
 type Prime() =
+    let primes = ResizeArray<int64>()
+
+    let seive start size =
+        let bitArray = System.Collections.BitArray(size, false)
+        primes
+        |> Seq.iter (fun n ->
+            let lower = if start % n = 0L then start/n else start/n + 1L
+            let upper = ((start + int64(size) - 1L) / n)
+            [|lower..upper|]
+            |> Array.filter (fun m -> m > 1L)
+            |> Array.iter (fun m ->
+                bitArray.Set(int32(m * n - start), true))
+            )
+        [|0..size - 1|]
+        |> Array.filter (fun n -> not (bitArray.Get(n)))
+        |> Array.map (fun n -> start + int64(n))
+
+    let nextSeive() =
+        if primes.Count = 0 then primes.Add(2L)
+        else
+            let maxPrime = primes |> Seq.max
+            let newPrimes = seive (maxPrime + 1L) (int32(maxPrime))
+            printfn "%i" primes.Count
+            primes.AddRange newPrimes
+
     let nextPrime (primesSoFar : int64 list)=
         let rec findNext (soFar : int64 list) (start : int64) =
             if (start % 2L = 0L && start > 2L) then findNext soFar (start + 1L)
@@ -15,16 +40,14 @@ type Prime() =
         let start = if primesSoFar.Length = 0 then 2L else ((primesSoFar |> List.max) + 1L)
         findNext primesSoFar start
 
-    let primes =
-        []
-        |> Seq.unfold (fun prev ->
-            let next = nextPrime prev
-            Some(next, next::prev))
-        |> Seq.cache
-
     member this.Item
         with get(n : int) =
-            primes |> Seq.item n
+            let rec getPrime n =
+                if primes.Count > n then primes.[n]
+                else
+                    nextSeive()
+                    getPrime(n)
+            getPrime n
 
     member this.Factorize source =
         let rec factorize soFar source primeIndex =
@@ -40,7 +63,7 @@ type Prime() =
     member this.LCM ([<ParamArray>] source : int64 array) =
         let factorizations =
            source
-           |> Array.Parallel.map this.Factorize
+           |> Array.map this.Factorize
            |> Array.Parallel.map (fun f -> (f |> List.groupBy (fun g -> g)))
            |> Array.Parallel.map (fun f -> f |> List.map (fun g -> g |> fst, g |> snd |> List.length))
            |> Array.Parallel.map (fun f -> f |> dict)

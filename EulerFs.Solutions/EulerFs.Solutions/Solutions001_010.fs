@@ -79,10 +79,29 @@ type Solutions001_010() =
             lines
             |> Array.reduce (fun acc next -> acc + next)
             |> (fun s -> s.ToCharArray())
-            |> Array.map (fun c -> System.Int64.Parse(c.ToString()))
+            |> Array.Parallel.map (fun c -> System.Int64.Parse(c.ToString()))
 
         [|0..(digits.Length - numberOfAdjacentDigits - 1)|]
-        |> Array.map (fun i -> [|0..numberOfAdjacentDigits - 1|] |> Array.map (fun j -> i + j))
-        |> Array.map (fun i -> i |> Array.map (fun j -> digits.[j]))
-        |> Array.map (fun i -> i |> Array.fold (fun acc next -> acc * next) 1L)
+        |> Array.Parallel.map (fun i -> [|0..numberOfAdjacentDigits - 1|] |> Array.Parallel.map (fun j -> i + j))
+        |> Array.Parallel.map (fun i -> i |> Array.Parallel.map (fun j -> digits.[j]))
+        |> Array.Parallel.map (fun i -> i |> Array.fold (fun acc next -> acc * next) 1L)
         |> Array.max
+
+    member this.Solution009 =
+            PythagoreanTriple().UpTo 1000
+            |> Seq.find (fun i ->
+                match i with
+                | a, b, c -> a + b + c = 1000)
+            |> (fun i ->
+                match i with
+                | a, b, c -> a * b * c)
+
+    member this.Solution010 =
+        let limit = 2000000L
+        let prime = Prime()
+        0
+        |> Seq.unfold (fun i ->
+            match prime.[i] with
+            | n when n > limit -> None
+            | n -> Some(n, i + 1))
+        |> Seq.sum
