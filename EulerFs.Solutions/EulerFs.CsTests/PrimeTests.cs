@@ -36,5 +36,18 @@ namespace EulerFs.CsTests
             var actual = _prime.Factorize(13195);
             Assert.That(actual, Is.EquivalentTo(expected));
         }
+
+        [Test]
+        public void LowestCommonMultipleWorks()
+        {
+            var expected = 2520;
+
+            var source = Enumerable.Range(1, 10)
+                .Select(i => (long)i)
+                .ToArray();
+
+            var actual = _prime.LCM(source);
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
