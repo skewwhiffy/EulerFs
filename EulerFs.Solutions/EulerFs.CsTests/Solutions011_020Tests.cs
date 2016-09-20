@@ -34,5 +34,13 @@ namespace EulerFs.CsTests
 
             Assert.That(solution, Is.EqualTo(76576500));
         }
+
+        [Test]
+        public void Solution013Works()
+        {
+            var solution = _solutions.Solution013;
+
+            Assert.That(solution, Is.EqualTo("5537376230"));
+        }
     }
 }
