@@ -28,7 +28,6 @@ type Prime() =
         else
             let maxPrime = primes |> Seq.max
             let newPrimes = seive (maxPrime + 1L) (int32(maxPrime))
-            printfn "%i" primes.Count
             primes.AddRange newPrimes
 
     let nextPrime (primesSoFar : int64 list)=
@@ -51,7 +50,8 @@ type Prime() =
 
     member this.Factorize source =
         let rec factorize soFar source primeIndex =
-            if source = 1L then soFar
+            if source < 1L then failwith "Needs to be strictly positive"
+            else if source = 1L then soFar
             else
                 let next =
                     Seq.initInfinite (fun i -> i + primeIndex)
@@ -59,6 +59,14 @@ type Prime() =
                 let nextPrime = this.[next]
                 factorize (nextPrime::soFar) (source/nextPrime) next
         factorize [] source 0
+
+    member this.NumberOfFactors source =
+        source
+        |> this.Factorize
+        |> List.groupBy (fun n -> n)
+        |> List.map (fun n -> fst n, (snd n).Length)
+        |> List.fold (fun acc (f, n) -> acc * (n + 1)) 1
+
 
     member this.LCM ([<ParamArray>] source : int64 array) =
         let factorizations =

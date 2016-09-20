@@ -49,5 +49,15 @@ namespace EulerFs.CsTests
             var actual = _prime.LCM(source);
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void NumberOfFactorsWorks()
+        {
+            var expected = 6;
+
+            var actual = _prime.NumberOfFactors(28);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
