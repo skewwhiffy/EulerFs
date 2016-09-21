@@ -173,3 +173,21 @@ type Solutions011_020() =
         |> List.fold (fun acc n -> System.Numerics.BigInteger.Add(acc, n)) (System.Numerics.BigInteger(0))
         |> (fun n -> n.ToString())
         |> (fun n -> n.Substring(0, 10))
+
+    member this.Solution014 =
+        let cache = System.Collections.Generic.Dictionary<int64, int32>()
+        let cacheAndReturn n l =
+            if not (n |> cache.ContainsKey) then cache.Add(n, l)
+            l
+        let rec chainLength start =
+            match start with
+            | 0L -> failwith "Must be strictly positive"
+            | 1L -> cacheAndReturn 1L 1
+            | n when cache.ContainsKey(n) -> cache.[n]
+            | n when n % 2L = 0L -> cacheAndReturn n (1 + chainLength(n / 2L))
+            | n -> cacheAndReturn n (1 + chainLength(3L * n + 1L))
+        [|1L..1000000L|]
+        |> Array.map (fun n -> n, (chainLength n))
+        |> Array.sortBy (fun (n, l) -> -l)
+        |> Array.item 0
+        |> fst
