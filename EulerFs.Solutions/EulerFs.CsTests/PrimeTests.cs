@@ -1,6 +1,5 @@
 ﻿using EulerFs.Common;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -56,6 +55,16 @@ namespace EulerFs.CsTests
             var expected = 6;
 
             var actual = _prime.NumberOfFactors(28);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void FactorizesCorrectly()
+        {
+            var expected = new[] {1, 2, 4, 71, 142, 284};
+
+            var actual = _prime.Factors(284);
 
             Assert.That(actual, Is.EqualTo(expected));
         }

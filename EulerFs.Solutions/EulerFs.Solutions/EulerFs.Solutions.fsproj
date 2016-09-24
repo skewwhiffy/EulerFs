@@ -54,6 +54,7 @@
     <Compile Include="Solutions001_010.fs" />
     <Compile Include="Solutions011_020.fs" />
     <None Include="Scratchpad.fsx" />
+    <Compile Include="Solutions021_030.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

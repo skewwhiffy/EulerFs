@@ -39,6 +39,21 @@ type Prime() =
         let start = if primesSoFar.Length = 0 then 2L else ((primesSoFar |> List.max) + 1L)
         findNext primesSoFar start
 
+    member this.Factors source =
+        let rec power f i =
+            match i with
+            | 0 -> 1L
+            | n -> f * (power f (n-1))
+        if (source = 1L) then [|1L|]
+        else
+            source
+            |> this.Factorize
+            |> List.groupBy (fun n -> n)
+            |> List.map (fun (f, n) -> f, n.Length)
+            |> Array.ofList
+            |> Array.map (fun (f, n) -> [|0..n|] |> Array.map (fun i -> power f i))
+            |> Array.reduce (fun acc next -> acc |> Array.collect (fun a -> next |> Array.map (fun n -> a * n)))
+
     member this.Item
         with get(n : int) =
             let rec getPrime n =
@@ -64,9 +79,8 @@ type Prime() =
         source
         |> this.Factorize
         |> List.groupBy (fun n -> n)
-        |> List.map (fun n -> fst n, (snd n).Length)
+        |> List.map (fun (f, n) -> f, n.Length)
         |> List.fold (fun acc (f, n) -> acc * (n + 1)) 1
-
 
     member this.LCM ([<ParamArray>] source : int64 array) =
         let factorizations =
