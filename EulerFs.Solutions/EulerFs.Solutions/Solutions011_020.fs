@@ -1,6 +1,7 @@
 ﻿namespace EulerFs.Solutions
 
 open EulerFs.Common
+open System
 open System.Numerics
 
 type Solutions011_020() =
@@ -292,3 +293,16 @@ type Solutions011_020() =
         |> Array.map (fun (m, y) -> System.DateTime(y, m, 1))
         |> Array.filter (fun d -> d.DayOfWeek = System.DayOfWeek.Sunday)
         |> fun n -> n.Length
+
+    member this.Solution020 =
+        let upperLimit = 100
+        let factorial n =
+            [|2..n|]
+            |> Array.map System.Numerics.BigInteger
+            |> Array.reduce (fun acc next -> BigInteger.Multiply(acc, next))
+        upperLimit
+        |> factorial
+        |> fun n -> n.ToString().ToCharArray()
+        |> Array.map (fun c -> c.ToString())
+        |> Array.map Int32.Parse
+        |> Array.sum
