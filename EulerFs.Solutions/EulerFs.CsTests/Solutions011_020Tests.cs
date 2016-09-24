@@ -1,10 +1,5 @@
 ﻿using EulerFs.Solutions;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EulerFs.CsTests
 {
@@ -49,6 +44,14 @@ namespace EulerFs.CsTests
             var solution = _solutions.Solution014;
 
             Assert.That(solution, Is.EqualTo(837799));
+        }
+
+        [Test]
+        public void Solution015Works()
+        {
+            var solution = _solutions.Solution015;
+
+            Assert.That(solution, Is.EqualTo(137846528820));
         }
     }
 }

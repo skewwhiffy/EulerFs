@@ -191,3 +191,14 @@ type Solutions011_020() =
         |> Array.sortBy (fun (n, l) -> -l)
         |> Array.item 0
         |> fst
+
+    member this.Solution015 =
+        let gridSize = 20L
+        let rec factorial n =
+            match n with
+            | 0L -> 1L
+            | n -> n * factorial(n - 1L)
+        [|1L..gridSize|]
+        |> Array.Parallel.map (fun n -> 2L * gridSize + 1L - n)
+        |> Array.fold (fun acc next -> acc * next) 1L
+        |> fun x -> x / (gridSize |> factorial)
