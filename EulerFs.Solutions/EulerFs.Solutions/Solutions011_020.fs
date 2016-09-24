@@ -221,3 +221,45 @@ type Solutions011_020() =
         |> Array.map (fun n -> n.ToString())
         |> Array.map System.Int32.Parse
         |> Array.sum
+
+    member this.Solution017 =
+        let upperBound = 1000
+        let rec AsString n =
+            match n with
+            | 1 -> "one"
+            | 2 -> "two"
+            | 3 -> "three"
+            | 4 -> "four"
+            | 5 -> "five"
+            | 6 -> "six"
+            | 7 -> "seven"
+            | 8 -> "eight"
+            | 9 -> "nine"
+            | 10 -> "ten"
+            | 11 -> "eleven"
+            | 12 -> "twelve"
+            | 13 -> "thirteen"
+            | 14 -> "fourteen"
+            | 15 -> "fifteen"
+            | 16 -> "sixteen"
+            | 17 -> "seventeen"
+            | 18 -> "eighteen"
+            | 19 -> "nineteen"
+            | 20 -> "twenty"
+            | 30 -> "thirty"
+            | 40 -> "forty"
+            | 50 -> "fifty"
+            | 60 -> "sixty"
+            | 70 -> "seventy"
+            | 80 -> "eighty"
+            | 90 -> "ninety"
+            | n when n < 100 -> AsString(n/10 * 10) + " " + AsString(n%10)
+            | n when n < 1000 && n % 100 = 0 -> AsString(n/100) + " hundred"
+            | n when n < 1000 -> AsString(n/100 * 100) + " and " + AsString(n%100)
+            | 1000 -> "one thousand"
+            | n -> failwith (sprintf "I do not understand %i" n)
+        [|1..upperBound|]
+        |> Array.map AsString
+        |> Array.map (fun n -> n.Replace(" ", ""))
+        |> Array.map (fun n -> n.Length)
+        |> Array.sum
