@@ -9,5 +9,5 @@ type Fibonacci() =
         |> Seq.cache
 
     member this.Item
-        with get(n : int) =
+        with get n =
             items |> Seq.item n

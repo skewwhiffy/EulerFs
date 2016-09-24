@@ -69,5 +69,21 @@ namespace EulerFs.CsTests
 
             Assert.That(solution, Is.EqualTo(21124));
         }
+
+        [Test]
+        public void Solution018Works()
+        {
+            var solution = _solutions.Solution018;
+
+            Assert.That(solution, Is.EqualTo(1074));
+        }
+
+        [Test]
+        public void Solution019Works()
+        {
+            var solution = _solutions.Solution019;
+
+            Assert.That(solution, Is.EqualTo(171));
+        }
     }
 }

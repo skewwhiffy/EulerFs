@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FibonacciTests.cs" />
+    <Compile Include="MaximumPathSumTests.cs" />
     <Compile Include="PrimeTests.cs" />
     <Compile Include="PythagoreanTripleTests.cs" />
     <Compile Include="Solutions001_010Tests.cs" />
