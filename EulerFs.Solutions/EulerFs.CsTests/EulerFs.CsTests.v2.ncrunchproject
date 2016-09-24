@@ -24,4 +24,9 @@
   <UseCPUArchitecture>AutoDetect</UseCPUArchitecture>
   <MSTestThreadApartmentState>STA</MSTestThreadApartmentState>
   <BuildProcessArchitecture>x86</BuildProcessArchitecture>
+  <IgnoredTests>
+    <FixtureTestSelector>
+      <FixtureName>EulerFs.CsTests.Solutions001_010Tests</FixtureName>
+    </FixtureTestSelector>
+  </IgnoredTests>
 </ProjectConfiguration>

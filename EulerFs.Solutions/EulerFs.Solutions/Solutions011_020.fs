@@ -1,6 +1,7 @@
 ﻿namespace EulerFs.Solutions
 
 open EulerFs.Common
+open System.Numerics
 
 type Solutions011_020() =
     member this.Solution011 =
@@ -193,12 +194,30 @@ type Solutions011_020() =
         |> fst
 
     member this.Solution015 =
-        let gridSize = 20L
+        let gridSize = 20
         let rec factorial n =
             match n with
             | 0L -> 1L
             | n -> n * factorial(n - 1L)
-        [|1L..gridSize|]
-        |> Array.Parallel.map (fun n -> 2L * gridSize + 1L - n)
-        |> Array.fold (fun acc next -> acc * next) 1L
-        |> fun x -> x / (gridSize |> factorial)
+        [|1..gridSize|]
+        |> Array.Parallel.map (fun n -> 2 * gridSize + 1 - n)
+        |> Array.fold (fun acc next ->  BigInteger.Multiply(acc, BigInteger(next))) (BigInteger(1))
+        |> fun x -> x / (gridSize |> int64 |> factorial |> BigInteger)
+        |> fun x -> x.ToString()
+        |> System.Int64.Parse
+
+    member this.Solution016 =
+        let power = 1000
+        let rec powerOfTwo n =
+            match n with
+            | 0 -> BigInteger(1)
+            | 1 -> BigInteger(2)
+            | n when n % 2 = 1 -> BigInteger.Multiply((powerOfTwo(n - 1)), BigInteger(2))
+            | n -> (n / 2) |> powerOfTwo |> fun n -> BigInteger.Multiply(n, n)
+        power
+        |> powerOfTwo
+        |> fun n -> n.ToString()
+        |> fun n -> n.ToCharArray()
+        |> Array.map (fun n -> n.ToString())
+        |> Array.map System.Int32.Parse
+        |> Array.sum
