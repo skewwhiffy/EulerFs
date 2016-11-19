@@ -56,6 +56,7 @@
     <Compile Include="PythagoreanTriple.fs" />
     <Compile Include="Triangle.fs" />
     <Compile Include="MaximumPathSum.fs" />
+    <Compile Include="Factorize.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

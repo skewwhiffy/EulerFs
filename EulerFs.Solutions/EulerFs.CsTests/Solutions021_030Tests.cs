@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using EulerFs.Solutions;
+﻿using EulerFs.Solutions;
 using NUnit.Framework;
 
 namespace EulerFs.CsTests
@@ -29,6 +27,14 @@ namespace EulerFs.CsTests
             var solution = _solutions.Solution022;
 
             Assert.That(solution, Is.EqualTo(871198282));
+        }
+
+        [Test, Explicit]
+        public void Solution23Works()
+        {
+            var solution = new Solution023Sandbox().Solution023;
+            
+            Assert.That(solution, Is.EqualTo(4179871));
         }
     }
 }

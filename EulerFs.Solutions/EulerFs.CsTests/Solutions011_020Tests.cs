@@ -22,7 +22,7 @@ namespace EulerFs.CsTests
             Assert.That(solution, Is.EqualTo(70600674));
         }
 
-        [Test]
+        [Test, Explicit]
         public void Solution012Works()
         {
             var solution = _solutions.Solution012;

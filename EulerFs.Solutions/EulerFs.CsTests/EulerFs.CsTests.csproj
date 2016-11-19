@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FactorizeTests.cs" />
     <Compile Include="FibonacciTests.cs" />
     <Compile Include="MaximumPathSumTests.cs" />
     <Compile Include="PrimeTests.cs" />

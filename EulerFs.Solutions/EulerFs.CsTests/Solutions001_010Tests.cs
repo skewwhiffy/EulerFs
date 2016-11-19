@@ -80,7 +80,7 @@ namespace EulerFs.CsTests
             Assert.That(solution, Is.EqualTo(23514624000L));
         }
 
-        [Test]
+        [Test, Explicit]
         public void Solution009Test()
         {
             var solution = _solutions.Solution009;

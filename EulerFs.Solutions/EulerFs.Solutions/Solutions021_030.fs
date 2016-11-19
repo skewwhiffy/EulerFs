@@ -32,3 +32,22 @@ type Solutions021_030() =
         |> Array.mapi (fun i s -> s, i + 1, worth(s))
         |> Array.map (fun (s, i, worth) -> i * worth)
         |> Array.sum
+
+    member this.Solution023 =
+        let upperLimit = 28123L
+        let prime = Prime()
+        prime.Factors(upperLimit) |> ignore
+        let ret = System.Collections.Generic.HashSet<int64>()
+        let abundantNumbers =
+            seq{2L..upperLimit}
+            |> Seq.map (fun n -> n, n |> prime.Factors |> Array.filter (fun f -> f < n) |> Array.sum)
+            |> Seq.filter (fun (n, d) -> d > n)
+            |> Seq.map (fun (n, d) -> n)
+            |> Array.ofSeq
+        abundantNumbers
+        |> Array.iter (fun n -> abundantNumbers
+                                            |> Array.Parallel.map (fun m -> n + m)
+                                            |> Array.filter (fun x -> x < upperLimit)
+                                            |> Array.iter (fun x -> ret.Add(x) |> ignore))
+        [|1L..28123L|]
+        |> Array.filter (fun n -> not (ret.Contains(n)))
